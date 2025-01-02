@@ -34,17 +34,17 @@ def main() -> None:
     renderer = GlfwRenderer(window)
 
     width, height = glfw.get_window_size(window)
-    set_perspective_projection(45.0, width / float(height), 0.1, 100.0)
+    set_perspective_projection(60.0, width / float(height), 0.1, 100.0)
     set_camera_view()
 
     gl.glEnable(gl.GL_DEPTH_TEST)
 
     ########## CONTROL POINTS ##########
     control_points: np.ndarray = np.array([
-        [0.0, -1.0, 0.0],
-        [1.0, 2.0, 0.0],
-        [2.0, -5.0, 0.0],
-        [1.0, 0.0, 0.0]
+        [-2.0, -2.0, 3.0],
+        [-1.0, 2.0, 0.0],
+        [1.0, -1.0, -4.0],
+        [2.0, 1.0, 1.0]
     ], dtype=float)
 
     ########## TRANSFORMATION VARIABLES ##########
@@ -105,9 +105,9 @@ def main() -> None:
 
         ##### ROTATION #####
         imgui.text("Rotation (X, Y, Z axes):")
-        _, rotation_x = imgui.slider_angle("Rotation X", rotation_x, -180.0, 180.0)
-        _, rotation_y = imgui.slider_angle("Rotation Y", rotation_y, -180.0, 180.0)
-        _, rotation_z = imgui.slider_angle("Rotation Z", rotation_z, -180.0, 180.0)
+        _, rotation_x = imgui.slider_angle("Rotation X", rotation_x, 0.0, 360.0)
+        _, rotation_y = imgui.slider_angle("Rotation Y", rotation_y, 0.0, 360.0)
+        _, rotation_z = imgui.slider_angle("Rotation Z", rotation_z, 0.0, 360.0)
         imgui.separator()
 
         ##### TRANSLATION #####
@@ -151,10 +151,19 @@ def main() -> None:
         )
 
         curve_points: np.ndarray = generate_bezier_curve(transformed_points)
+        # Enable lighting
+        gl.glEnable(gl.GL_LIGHTING)
+        gl.glEnable(gl.GL_LIGHT0)  # Add a light source
+        
+        # Set light properties
+        light_pos = [1.0, 1.0, 1.0, 0.0]  # Light position
+        light_color = [1.0, 1.0, 1.0, 1.0]  # White light
+        gl.glLightfv
 
         gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
         gl.glClearColor(0.2, 0.3, 0.3, 1.0)
-
+        
+        gl.glLineWidth(5.0)  # Adjust the line width
         gl.glBegin(gl.GL_LINE_STRIP)
         for point in curve_points:
             gl.glVertex3f(point[0], point[1], point[2])
