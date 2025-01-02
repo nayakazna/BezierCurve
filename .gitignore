@@ -1,7 +1,8 @@
-nayaka.aux
-nayaka.log
-nayaka.fls
-nayaka.synctex.gz
-nayaka.toc
-nayaka.out
-nayaka.fdb_latexmk
+*.aux
+*.log
+*.fls
+*.synctex.gz
+*.toc
+*.out
+*.fdb_latexmk
+*.pyc
