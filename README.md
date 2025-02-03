@@ -27,6 +27,25 @@ pip install requirements.txt
 
 Next, you can run `main.py` in the folder `src`. Have fun! :D
 
+# Usage
+- You can adjust the control points' position for the Bézier curve through the `Control Points` window.
+
+- You can apply the following transformations to the the Bézier curve:
+  - Reflection
+  - Dilation
+  - Rotation
+  - Translation
+  - Shear
+  by clicking the corresponding buttons in the `Transformation` window.
+
+- You can move the camera using the following keys:
+  - `W` to move forward
+  - `A` to move left
+  - `S` to move backward
+  - `D` to move right
+  - `Q` to move up
+  - `E` to move down
+
 # Best Regards
 I believe you can do better!
 
