@@ -1,4 +1,11 @@
-PyOpenGL
-numpy
-glfw
-imgui
+flake8==5.0.4
+pycodestyle==2.12.1
+pyflakes==3.2.0
+pytest==7.2.0
+exceptiongroup==1.2.2
+iniconfig==2.0.0
+packaging==24.2
+PyOpenGL==3.1.8
+numpy==1.26.4
+glfw==2.8.0
+imgui==2.0.0
