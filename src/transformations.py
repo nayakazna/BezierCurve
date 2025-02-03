@@ -113,7 +113,7 @@ def shear(v: ndarray, xy: float, xz: float, yx: float, yz: float, zx: float, zy:
     ])
     return shear_matrix @ v
 
-def create_axis_quaternion(axis: str, angle_deg: float) -> ndarray:
+def create_axis_quaternion(axis: str, angle: float) -> ndarray:
     """
     @brief Create a quaternion from an axis of rotation and an angle.
 
@@ -122,10 +122,11 @@ def create_axis_quaternion(axis: str, angle_deg: float) -> ndarray:
 
     @return A numpy array representing the quaternion.
     """
-    angle_rad = np.radians(angle_deg)
-    half_angle = angle_rad / 2
-    s = np.sin(half_angle)
-    c = np.cos(half_angle)
+    if axis not in ['x', 'y', 'z']:
+        raise ValueError("Invalid axis. Use 'x', 'y', or 'z'.")
+    
+    s = np.sin(angle)
+    c = np.cos(angle)
 
     if axis == 'x':
         return np.array([c, s, 0.0, 0.0])
@@ -133,8 +134,6 @@ def create_axis_quaternion(axis: str, angle_deg: float) -> ndarray:
         return np.array([c, 0.0, s, 0.0])
     elif axis == 'z':
         return np.array([c, 0.0, 0.0, s])
-    else:
-        raise ValueError("Invalid axis. Use 'x', 'y', or 'z'.")
 
 def rotate(point: ndarray, quaternion: ndarray) -> ndarray:
     """
