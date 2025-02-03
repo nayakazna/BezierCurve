@@ -9,7 +9,7 @@ from transformations import (
     reflection, scaling, shear, create_axis_quaternion, rotate, apply_transformations
 )
 from bezier import generate_bezier_curve
-from display import set_perspective_projection, set_camera_view
+from display import Camera
 
 ########## Main Function ##########
 def main() -> None:
@@ -27,15 +27,17 @@ def main() -> None:
         print("Failed to create GLFW window")
         return
 
-    ########## OpenGL Setup ##########
+    ########## OpenGL SETUP ##########
     glfw.make_context_current(window)
 
     imgui.create_context()
     renderer = GlfwRenderer(window)
-
     width, height = glfw.get_window_size(window)
-    set_perspective_projection(60.0, width / float(height), 0.1, 100.0)
-    set_camera_view()
+
+    ########## CAMERA SETUP ##########
+
+    camera = Camera()
+    camera.set_perspective_projection()
 
     gl.glEnable(gl.GL_DEPTH_TEST)
 
@@ -69,6 +71,8 @@ def main() -> None:
     while not glfw.window_should_close(window):
         glfw.poll_events()
         renderer.process_inputs()
+        camera.update(window)
+        camera.set_camera_view()
 
         ########## WINDOW RESIZING ##########
         new_width, new_height = glfw.get_window_size(window)
