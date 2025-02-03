@@ -79,10 +79,24 @@ def main() -> None:
         ########## IMGUI CONTROL PANEL ##########
         imgui.new_frame()
 
+        ######## CONTROL POINTS ########
         imgui.set_next_window_size(300, 400)
-        imgui.set_next_window_position(10, 10)
+        imgui.set_next_window_position(10, 500)
+        imgui.begin("Control Points")
+        
+        ##### INPUT FIELD #####
+        for i in range(4):
+            imgui.text(f"Control Point {i + 1}:")
+            _, control_points[i][0] = imgui.input_float(f"X_{i+1}", control_points[i][0], step=0.1, format="%.1f")
+            _, control_points[i][1] = imgui.input_float(f"Y_{i+1}", control_points[i][1], step=0.1, format="%.1f")
+            _, control_points[i][2] = imgui.input_float(f"Z_{i+1}", control_points[i][2], step=0.1, format="%.1f")
+        imgui.separator()
+        imgui.end()
 
-        imgui.begin("Control Panel")
+        ######## TRANSFORMATION ########
+        imgui.set_next_window_size(300, 450)
+        imgui.set_next_window_position(10, 10)
+        imgui.begin("Transformation")
 
         ##### REFLECTION #####
         imgui.text("Reflection Axis:")
