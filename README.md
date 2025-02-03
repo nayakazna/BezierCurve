@@ -25,7 +25,7 @@ Navigate using `cd` to the directory of this repository and install the required
 pip install requirements.txt
 ```
 
-Next, you can run any Python script you want in the folder `src`. Have fun! :D
+Next, you can run `main.py` in the folder `src`. Have fun! :D
 
 # Best Regards
 I believe you can do better!
