@@ -167,16 +167,16 @@ def main() -> None:
         )
 
 
-        ##### LIGHTING ##### (Optional)
-        # Setup lighting
-        gl.glEnable(gl.GL_LIGHTING)
-        gl.glEnable(gl.GL_LIGHT0)  # Add a light source
+        # ##### LIGHTING ##### (Optional)
+        # # Setup lighting
+        # gl.glEnable(gl.GL_LIGHTING)
+        # gl.glEnable(gl.GL_LIGHT0)  # Add a light source
         
-        # Set light properties
-        light_pos = [1.0, 1.0, 1.0, 0.0]  # Light position
-        light_color = [1.0, 1.0, 1.0, 1.0]  # White light
-        gl.glLightfv(gl.GL_LIGHT0, gl.GL_POSITION, light_pos)
-        gl.glLightfv(gl.GL_LIGHT0, gl.GL_DIFFUSE, light_color)
+        # # Set light properties
+        # light_pos = [1.0, 1.0, 1.0, 0.0]  # Light position
+        # light_color = [1.0, 1.0, 1.0, 1.0]  # White light
+        # gl.glLightfv(gl.GL_LIGHT0, gl.GL_POSITION, light_pos)
+        # gl.glLightfv(gl.GL_LIGHT0, gl.GL_DIFFUSE, light_color)
 
         gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
         gl.glClearColor(0.2, 0.3, 0.3, 1.0)
@@ -186,10 +186,10 @@ def main() -> None:
         curve_points: np.ndarray = generate_bezier_curve(transformed_points)
         
         # Setup for renderin
-        gl.glColor3f(0.0, 1.0, 0.0)
-        gl.glLineWidth(5.0)
         
         # Draw the Bézier curve
+        gl.glLineWidth(5.0)
+        gl.glColor3f(0.0, 1.0, 0.0)
         gl.glBegin(gl.GL_LINE_STRIP)
         for point in curve_points:
             gl.glVertex3f(point[0], point[1], point[2])
@@ -197,9 +197,9 @@ def main() -> None:
 
         # Draw the control points
         gl.glPointSize(10.0)
+        gl.glColor3f(1.0, 0.0, 0.0)
         gl.glBegin(gl.GL_POINTS)
         for point in transformed_points:
-            gl.glColor3f(1.0, 0.0, 0.0)
             gl.glVertex3f(point[0], point[1], point[2])
         gl.glEnd()
 
