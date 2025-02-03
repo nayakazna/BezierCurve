@@ -105,6 +105,7 @@ def main() -> None:
 
         ##### ROTATION #####
         imgui.text("Rotation (X, Y, Z axes):")
+        # These sliders automatically convert degrees to radians
         _, rotation_x = imgui.slider_angle("Rotation X", rotation_x, 0.0, 360.0)
         _, rotation_y = imgui.slider_angle("Rotation Y", rotation_y, 0.0, 360.0)
         _, rotation_z = imgui.slider_angle("Rotation Z", rotation_z, 0.0, 360.0)
@@ -158,7 +159,8 @@ def main() -> None:
         # Set light properties
         light_pos = [1.0, 1.0, 1.0, 0.0]  # Light position
         light_color = [1.0, 1.0, 1.0, 1.0]  # White light
-        gl.glLightfv
+        gl.glLightfv(gl.GL_LIGHT0, gl.GL_POSITION, light_pos)
+        gl.glLightfv(gl.GL_LIGHT0, gl.GL_DIFFUSE, light_color)
 
         gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
         gl.glClearColor(0.2, 0.3, 0.3, 1.0)

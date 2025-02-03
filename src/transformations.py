@@ -118,13 +118,13 @@ def create_axis_quaternion(axis: str, angle: float) -> ndarray:
     @brief Create a quaternion from an axis of rotation and an angle.
 
     @param axis A string specifying the axis of rotation ("x", "y", or "z").
-    @param angle_deg The rotation angle in degrees.
+    @param angle The rotation angle in degrees.
 
     @return A numpy array representing the quaternion.
     """
     if axis not in ['x', 'y', 'z']:
         raise ValueError("Invalid axis. Use 'x', 'y', or 'z'.")
-    
+    angle /= 2
     s = np.sin(angle)
     c = np.cos(angle)
 
