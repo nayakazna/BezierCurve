@@ -5,8 +5,8 @@ pytest==7.2.0
 exceptiongroup==1.2.2
 iniconfig==2.0.0
 packaging==24.2
-PyOpenGL @ file://libs/PyOpenGL-3.1.8-cp312-cp312-win_amd64.whl
-PyOpenGL-accelerate @ file://libs/PyOpenGL_accelerate-3.1.8-cp312-cp312-win_amd64.whl
+PyOpenGL=3.1.9
+PyOpenGL-accelerate=3.1.9
 numpy==1.26.4
 glfw==2.8.0
 imgui==2.0.0

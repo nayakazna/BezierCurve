@@ -27,13 +27,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install flake8 pytest
-        if [ -f requirements.txt ]; then
-          if [[ "$RUNNER_OS" == "Linux" ]]; then
-            pip install --find-links=libs -r requirements.txt  # For Linux systems
-          else
-            pip install -r requirements.txt  # For Windows systems, uses local .whl
-          fi
-        fi
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
