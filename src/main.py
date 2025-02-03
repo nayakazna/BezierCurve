@@ -145,6 +145,7 @@ def main() -> None:
         imgui.end()
 
         ########## RENDERING ##########
+        ##### TRANSFORM CONTROL POINTS #####
         transformed_points: np.ndarray = apply_transformations(
             control_points,
             reflection_axis,
@@ -165,8 +166,9 @@ def main() -> None:
             shear_zy
         )
 
-        curve_points: np.ndarray = generate_bezier_curve(transformed_points)
-        # Enable lighting
+
+        ##### LIGHTING ##### (Optional)
+        # Setup lighting
         gl.glEnable(gl.GL_LIGHTING)
         gl.glEnable(gl.GL_LIGHT0)  # Add a light source
         
@@ -179,17 +181,46 @@ def main() -> None:
         gl.glClear(gl.GL_COLOR_BUFFER_BIT | gl.GL_DEPTH_BUFFER_BIT)
         gl.glClearColor(0.2, 0.3, 0.3, 1.0)
         
-        gl.glLineWidth(5.0)  # Adjust the line width
+        ##### BÉZIER CURVE #####
+        # Generate all points on the Bézier curve
+        curve_points: np.ndarray = generate_bezier_curve(transformed_points)
+        
+        # Setup for renderin
+        gl.glColor3f(0.0, 1.0, 0.0)
+        gl.glLineWidth(5.0)
+        
+        # Draw the Bézier curve
         gl.glBegin(gl.GL_LINE_STRIP)
         for point in curve_points:
             gl.glVertex3f(point[0], point[1], point[2])
         gl.glEnd()
 
+        # Draw the control points
+        gl.glPointSize(10.0)
+        gl.glBegin(gl.GL_POINTS)
+        for point in transformed_points:
+            gl.glColor3f(1.0, 0.0, 0.0)
+            gl.glVertex3f(point[0], point[1], point[2])
+        gl.glEnd()
+
+        # Draw the weight lines
+        gl.glBegin(gl.GL_LINES)
+        gl.glVertex3f(transformed_points[0][0], transformed_points[0][1], transformed_points[0][2])
+        gl.glVertex3f(transformed_points[1][0], transformed_points[1][1], transformed_points[1][2])
+        gl.glEnd()
+        
+        gl.glBegin(gl.GL_LINES)
+        gl.glVertex3f(transformed_points[2][0], transformed_points[2][1], transformed_points[2][2])
+        gl.glVertex3f(transformed_points[3][0], transformed_points[3][1], transformed_points[3][2])
+        gl.glEnd()
+
+        ##### IMGUI WINDOW #####
         imgui.render()
         renderer.render(imgui.get_draw_data())
 
         glfw.swap_buffers(window)
 
+    ########## CLEANUP ##########
     renderer.shutdown()
     imgui.destroy_context()
     glfw.terminate()
